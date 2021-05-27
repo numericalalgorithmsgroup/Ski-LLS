@@ -1,0 +1,113 @@
+%%MatrixMarket matrix coordinate integer general
+%-------------------------------------------------------------------------------
+% SJSU Singular Matrix Database, Leslie Foster
+% http://www.math.sjsu.edu/singular/matrices/html/JGD_Homology/n3c5-b1
+% name: JGD_Homology/n3c5-b1
+% [Simplicial complexes from Homology from Volkmar Welker.]
+% id: 548
+% date: 2008
+% author: V. Welker
+% ed: J.-G. Dumas
+% fields: name title A date author ed kind notes svals sval_info SJid UFid
+% kind: combinatorial problem
+%-------------------------------------------------------------------------------
+% notes:
+% Simplicial complexes from Homology from Volkmar Welker.     
+% From Jean-Guillaume Dumas' Sparse Integer Matrix Collection,
+% http://ljk.imag.fr/membres/Jean-Guillaume.Dumas/simc.html   
+%                                                             
+% http://www.mathematik.uni-marburg.de/~welker/               
+%                                                             
+% Filename in JGD collection: Homology/n3c5.b1.45x10.sms      
+%-------------------------------------------------------------------------------
+45 10 90
+9 1 1
+17 1 1
+24 1 1
+30 1 1
+35 1 1
+39 1 1
+42 1 1
+44 1 1
+45 1 1
+8 2 1
+16 2 1
+23 2 1
+29 2 1
+34 2 1
+38 2 1
+41 2 1
+43 2 1
+45 2 -1
+7 3 1
+15 3 1
+22 3 1
+28 3 1
+33 3 1
+37 3 1
+40 3 1
+43 3 -1
+44 3 -1
+6 4 1
+14 4 1
+21 4 1
+27 4 1
+32 4 1
+36 4 1
+40 4 -1
+41 4 -1
+42 4 -1
+5 5 1
+13 5 1
+20 5 1
+26 5 1
+31 5 1
+36 5 -1
+37 5 -1
+38 5 -1
+39 5 -1
+4 6 1
+12 6 1
+19 6 1
+25 6 1
+31 6 -1
+32 6 -1
+33 6 -1
+34 6 -1
+35 6 -1
+3 7 1
+11 7 1
+18 7 1
+25 7 -1
+26 7 -1
+27 7 -1
+28 7 -1
+29 7 -1
+30 7 -1
+2 8 1
+10 8 1
+18 8 -1
+19 8 -1
+20 8 -1
+21 8 -1
+22 8 -1
+23 8 -1
+24 8 -1
+1 9 1
+10 9 -1
+11 9 -1
+12 9 -1
+13 9 -1
+14 9 -1
+15 9 -1
+16 9 -1
+17 9 -1
+1 10 -1
+2 10 -1
+3 10 -1
+4 10 -1
+5 10 -1
+6 10 -1
+7 10 -1
+8 10 -1
+9 10 -1

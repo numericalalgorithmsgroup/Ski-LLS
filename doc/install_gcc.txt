@@ -1,0 +1,85 @@
+Ski-LLS has several dependencies which need to be provided to be able to run the package. These are:
+(1) Lapack & Blas - basic underlying linear algebra libraries
+(2)
+...
+You will need to modify your config makefile to let Ski-LLS know how to access them. 
+
+It is likely that your system already has optimized Lapack/Blas (such as MKL or ...[max version]) or FFTW, however, the instructions below provide you with a step-by-step to build all libraries from scratch.
+
+It is essential that the provided libraries are compatible with each other (i.e., the same or a compatible compiler) and share the same size of integers...
+
+## Building dependencies
+
+Instructions to build everything from scratch with gcc suite.
+gcc/g++/gfortran on Linux with 64bit integers ("ILP64") modifying config/make_gcc.inc
+
+(1) Building vanilla Lapack, Blas
+* download the latest Lapack (it contains Blas as well): https://github.com/Reference-LAPACK/lapack/archive/v3.9.0.tar.gz
+wget -nd https://github.com/Reference-LAPACK/lapack/archive/v3.9.0.tar.gz
+* extract the files:
+tar -xzf v3.9.0.tar.gz
+cd lapack-3.9.0
+adapt the example include makefile
+cp make.inc.example make.inc
+and edit:   Integer size!!!
+CFLAGS = -O3 -fPIC
+FFLAGS = -O2 -frecursive -fPIC -fdefault-integer-8
+FFLAGS_NOOPT = -O0 -frecursive -fPIC -fdefault-integer-8
+
+make -j 20 blaslib lapacklib
+This should generate: lapack-3.9.0/liblapack.a librefblas.a
+
+Refer to these libraries in LIBS_LAPACK, such as:
+LAPACKROOT = /fserver/jan/math/nag/sketching/lapack-3.9.0/
+LIBS_LAPACK = ${LAPACKROOT}/liblapack.a ${LAPACKROOT}/librefblas.a -lgfortran
+
+It is highly recommended to use tuned libraries to your system/architecture to achieve a good performance.
+
+(2) Build SuiteSparse
+Download:
+wget -nd https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/v5.6.0.tar.gz
+tar -xzf SuiteSparse-v5.6.0.tar.gz
+cd SuiteSparse-5.6.0
+
+make CC=gcc CXX=g++ BLAS="/fserver/jan/math/nag/sketching/lapack-3.9.0/librefblas.a -lgfortran" LAPACK=/fserver/jan/math/nag/sketching/lapack-3.9.0/liblapack.a CHOLMOD_CONFIG=-DLONGBLAS=long UMFPACK_CONFIG=-DLONGBLAS=long
+
+by default links to shareable, so set var:
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/fserver/jan/math/nag/sketching/SuiteSparse-5.6.0/lib"
+setenv LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/fserver/jan/math/nag/sketching/SuiteSparse-5.6.0/lib"
+
+Refer to these libraries in LIBS_SPARSE, such as:
+SUITESPARSEROOT ?= /fserver/jan/math/nag/sketching/SuiteSparse-5.6.0/
+LIBS_SPARSE = -L${SUITESPARSEROOT}/lib -lcxsparse -lcholmod -lspqr
+
+
+(3) FFTW
+wget -nd http://www.fftw.org/fftw-3.3.8.tar.gz
+tar -xzf fftw-3.3.8.tar.gz
+configure
+make
+[optionally make check]
+
+FFTWROOT ?= /fserver/jan/math/nag/sketching/fftw-3.3.8/
+FFTW_INCLUDE ?= ${FFTWROOT}/api
+LIBS_FFTW = ${FFTWROOT}/.libs/libfftw3.a
+
+(4) Boost C++ Libraries
+Download Boost:
+wget -nd https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz
+Extract:
+tar -xzf boost_1_72_0.tar.gz
+As these are header only libraries, there is nothing to build. We just need to point our makefile to the root of the boost directory tree to consider this directory for includes:
+BOOSTROOT ?= /fserver/jan/math/nag/sketching/boost_1_72_0/
+
+## Build & test Ski-LLS
+
+As we followed the instructions above, we should have now adjusted the config makefile pointing to the location of all dependencies:
+[list here]
+
+make ... to get help
+make lib ... to build Ski-LLS library
+
+make hqrrp_test ... to test...
+make test ... to test the whole Ski-LLS
+
+

@@ -1,0 +1,11 @@
+*.out
+*.dSYM
+*.o
+*.mexmaci64
+.*DS_Store
+*.a
+*~
+*.swp
+*.exe
+*_.DS_Store
+.html

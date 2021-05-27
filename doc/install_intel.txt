@@ -1,0 +1,43 @@
+(1) Lapack & Blas
+
+Using one from MKL -- use MKL Link Advisor to match correct linking per your version
+
+For example, for dynamic linking use
+LIBS_LAPACK = -L${MKLROOT}/lib/intel64 -Wl,--no-as-needed -lmkl_intel_ilp64 -lmkl_sequential -lmkl_core -lpthread -lm -ldl
+
+# or static linking
+LIBS_LAPACK =  -Wl,--start-group ${MKLROOT}/lib/intel64/libmkl_intel_ilp64.a ${MKLROOT}/lib/intel64/libmkl_sequential.a ${MKLROOT}/lib/intel64/libmkl_core.a -Wl,--end-group -lpthread -lm -ldl
+
+
+(2) Build SuiteSparse
+same as before but in directory /fserver/jan/math/nag/sketching/SuiteSparse-5.6.0-intel/
+
+make CC=icc CXX=icc BLAS="-L${MKLROOT}/lib/intel64 -Wl,--no-as-needed -lmkl_intel_ilp64 -lmkl_sequential -lmkl_core -lpthread -lm -ldl" LAPACK="" CHOLMOD_CONFIG=-DLONGBLAS=long UMFPACK_CONFIG=-DLONGBLAS=long
+
+setenv LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/fserver/jan/math/nag/sketching/SuiteSparse-5.6.0-intel/lib"
+
+SUITESPARSEROOT ?= /fserver/jan/math/nag/sketching/SuiteSparse-5.6.0-intel/
+LIBS_SPARSE = -L${SUITESPARSEROOT}/lib -lcxsparse -lcholmod -lspqr
+
+(3) fftw
+
+in fftw-3.3.8-intel
+[also try the one which comes with MKL??]
+
+./configure CC=icc
+make
+
+... doesn't work, let's use the gcc compilation for now
+
+FFTWROOT ?= /fserver/jan/math/nag/sketching/fftw-3.3.8-intel/
+FFTW_INCLUDE ?= ${FFTWROOT}/api
+LIBS_FFTW = ${FFTWROOT}/.libs/libfftw3.a
+
+Actually, if nothing is specified, the headers & libs must be already in MKL so it worked (seems as well)
+so just don't define any of FFTW* variables
+
+(4) Boost - as before
+
+make CONFIG=config/make_intel.inc lib
+
+

@@ -1,0 +1,18 @@
+/**
+ * This file is part of Ski-LLS - a package for solving large-scale
+ * over-determined linear least square problems
+ *
+ * Copyright (c) 2020 by Zhen Shao
+ *
+ * This code is licensed under 3-clause BSD license
+
+ * Adapted from LSRN C++ package, written by Xiangrui Meng <mengxr@stanford.edu>
+ * https://web.stanford.edu/group/SOL/software.html
+ * https://web.stanford.edu/group/SOL/software/lsrn
+ *
+ * Extended 
+ * <with a new sparse solver using hashing matrices and sparse factorisations>
+ * <with a new dense solver using hashed-discrete-hartley transform and randomised column pivoted QR factorisation>
+ * <resulting in significant faster computation, see paper, Sparse sketching for sparse linear least squares
+ * C. Cartis, J. Fiala and Z. Shao, ICML Workshop “Beyond first order methods for ML systems”, ICML2020>
+**/
